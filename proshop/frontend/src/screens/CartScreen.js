@@ -21,7 +21,8 @@ const CartScreen = ({ match, location, history }) => {
 
   const cart = useSelector((state) => state.cart);
   const { cartItems } = cart;
-  console.log(cartItems);
+
+  //console.log(cartItems);
 
   useEffect(() => {
     if (productId) {
@@ -109,10 +110,10 @@ const CartScreen = ({ match, location, history }) => {
             </ListGroup.Item>
             <ListGroup.Item>
               <Button
-                type='button'
-                className='btn-block'
-                disabled={cartItems.lenght === 0}
                 onClick={checkoutHandeler}
+                className='btn-block'
+                type='button'
+                disabled={cartItems.lenght < 1 }
               >
                 Proceed To Checkout
               </Button>
