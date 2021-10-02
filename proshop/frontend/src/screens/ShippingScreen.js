@@ -1,8 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import FormContainer from '../components/FormContainer';
+import React, { useState } from 'react';
 import { Form, Button } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
-import { saveShippingAddress } from '../actions/cartActions';
+import FormContainer from '../components/FormContainer';
+import CheckoutSteps from '../components/CheckoutSteps';
+import { saveShippingAddress } from '../actions/cartActions.js';
+
 
 function ShippingScreen({ history }) {
   const cart = useSelector((state) => state.cart);
@@ -14,13 +16,16 @@ function ShippingScreen({ history }) {
   const [country, setCountry] = useState(shippingAddress.country);
 
   const dispatch = useDispatch();
+
   const submitHandler = (e) => {
     e.preventDefault();
+    //console.log(saveShippingAddress);
     dispatch(saveShippingAddress({ address, city, postalCode, country }));
     history.push('/payment');
   };
   return (
     <FormContainer>
+      <CheckoutSteps step1 step2 />
       <h1>Shipping</h1>
       <Form onSubmit={submitHandler}>
         <Form.Group controlId='address'>
@@ -33,6 +38,7 @@ function ShippingScreen({ history }) {
             onchange={(e) => setAddress(e.target.value)}
           ></Form.Control>
         </Form.Group>
+
         <Form.Group controlId='city'>
           <Form.Label>City</Form.Label>
           <Form.Control
@@ -43,6 +49,7 @@ function ShippingScreen({ history }) {
             onchange={(e) => setCity(e.target.value)}
           ></Form.Control>
         </Form.Group>
+
         <Form.Group controlId='postalCode'>
           <Form.Label>Postal Code</Form.Label>
           <Form.Control
@@ -53,7 +60,8 @@ function ShippingScreen({ history }) {
             onchange={(e) => setPostalCode(e.target.value)}
           ></Form.Control>
         </Form.Group>
-        <Form.Group controlId='Country'>
+
+        <Form.Group controlId='country'>
           <Form.Label>Country</Form.Label>
           <Form.Control
             type='text'

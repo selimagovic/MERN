@@ -22,8 +22,6 @@ const CartScreen = ({ match, location, history }) => {
   const cart = useSelector((state) => state.cart);
   const { cartItems } = cart;
 
-  //console.log(cartItems);
-
   useEffect(() => {
     if (productId) {
       dispatch(addToCart(productId, qty));
@@ -113,11 +111,7 @@ const CartScreen = ({ match, location, history }) => {
                 onClick={checkoutHandeler}
                 className='btn-block'
                 type='button'
-<<<<<<< HEAD
                 disabled={cartItems.lenght === 0}
-=======
-                disabled={cartItems.lenght < 1 }
->>>>>>> 73f45a3af6c8b5950d6d6b1a4da07bfb0cc73b98
               >
                 Proceed To Checkout
               </Button>
