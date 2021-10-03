@@ -39,17 +39,15 @@ const PaymentScreen = ({ history }) => {
               checked
               onChange={(e) => setPaymentMethod(e.target.value)}
             ></Form.Check>
-          </Col>
-          <Col>
-            <Form.Check
+
+            {/*<Form.Check
               type='radio'
-              label='Bitcoin'
-              id='Bitcoin'
+              label='Stripe'
+              id='Stripe'
               name='paymentmethod'
-              value='Bitcoin'
-              checked
+              value='Stripe'
               onChange={(e) => setPaymentMethod(e.target.value)}
-            ></Form.Check>
+            ></Form.Check>*/}
           </Col>
         </Form.Group>
 

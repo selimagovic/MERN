@@ -5,7 +5,6 @@ import FormContainer from '../components/FormContainer';
 import CheckoutSteps from '../components/CheckoutSteps';
 import { saveShippingAddress } from '../actions/cartActions.js';
 
-
 function ShippingScreen({ history }) {
   const cart = useSelector((state) => state.cart);
   const { shippingAddress } = cart;
@@ -19,7 +18,7 @@ function ShippingScreen({ history }) {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    //console.log(saveShippingAddress);
+    console.log(saveShippingAddress);
     dispatch(saveShippingAddress({ address, city, postalCode, country }));
     history.push('/payment');
   };
@@ -35,7 +34,7 @@ function ShippingScreen({ history }) {
             placeholder='Enter Address'
             value={address}
             required
-            onchange={(e) => setAddress(e.target.value)}
+            onChange={(e) => setAddress(e.target.value)}
           ></Form.Control>
         </Form.Group>
 
@@ -46,7 +45,7 @@ function ShippingScreen({ history }) {
             placeholder='Enter City'
             value={city}
             required
-            onchange={(e) => setCity(e.target.value)}
+            onChange={(e) => setCity(e.target.value)}
           ></Form.Control>
         </Form.Group>
 
@@ -57,7 +56,7 @@ function ShippingScreen({ history }) {
             placeholder='Enter Postal Code'
             value={postalCode}
             required
-            onchange={(e) => setPostalCode(e.target.value)}
+            onChange={(e) => setPostalCode(e.target.value)}
           ></Form.Control>
         </Form.Group>
 
@@ -68,7 +67,7 @@ function ShippingScreen({ history }) {
             placeholder='Enter Country'
             value={country}
             required
-            onchange={(e) => setCountry(e.target.value)}
+            onChange={(e) => setCountry(e.target.value)}
           ></Form.Control>
         </Form.Group>
 
