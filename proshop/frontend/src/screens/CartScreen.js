@@ -32,7 +32,7 @@ const CartScreen = ({ match, location, history }) => {
     dispatch(removeFromCart(id));
   };
 
-  const checkoutHandeler = () => {
+  const checkoutHandler = () => {
     history.push('/login?redirect=shipping');
   };
   return (
@@ -110,8 +110,8 @@ const CartScreen = ({ match, location, history }) => {
               <Button
                 type='button'
                 className='btn-block'
-                disabled={cartItems.lenght === 0}
-                onClick={checkoutHandeler}
+                disabled={cartItems.length === 0}
+                onClick={checkoutHandler}
               >
                 Proceed To Checkout
               </Button>

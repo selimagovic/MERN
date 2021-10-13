@@ -29,7 +29,10 @@ export const login = (email, password) => async (dispatch) => {
       config
     );
 
-    dispatch({ type: USER_LOGIN_SUCCESS, payload: data });
+    dispatch({
+      type: USER_LOGIN_SUCCESS,
+      payload: data,
+    });
 
     localStorage.setItem('userInfo', JSON.stringify(data));
   } catch (error) {
@@ -92,7 +95,10 @@ export const getUserDetails = (id) => async (dispatch, getState) => {
 
     const { data } = await axios.get(`/api/users/${id}`, config);
 
-    dispatch({ type: USER_DETAILS_SUCCESS, payload: data });
+    dispatch({
+      type: USER_DETAILS_SUCCESS,
+      payload: data,
+    });
   } catch (error) {
     dispatch({
       type: USER_DETAILS_FAIL,
@@ -107,7 +113,7 @@ export const getUserDetails = (id) => async (dispatch, getState) => {
 export const updateUserProfile = (user) => async (dispatch, getState) => {
   try {
     dispatch({ type: USER_UPDATE_PROFILE_REQUEST });
-    
+
     const {
       userLogin: { userInfo },
     } = getState();
@@ -123,15 +129,14 @@ export const updateUserProfile = (user) => async (dispatch, getState) => {
 
     dispatch({
       type: USER_UPDATE_PROFILE_SUCCESS,
-      payload: data
+      payload: data,
     });
 
     dispatch({
       type: USER_LOGIN_SUCCESS,
-      payload: data
+      payload: data,
     });
     localStorage.setItem('userInfo', JSON.stringify(data));
-    
   } catch (error) {
     dispatch({
       type: USER_UPDATE_PROFILE_FAIL,
