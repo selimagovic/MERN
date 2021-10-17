@@ -9,7 +9,7 @@ const Header = () => {
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
 
-  const logoutHandeler = () => {
+  const logoutHandler = () => {
     dispatch(logout());
   };
   return (
@@ -32,7 +32,22 @@ const Header = () => {
                   <LinkContainer to='/profile'>
                     <NavDropdown.Item>Profile</NavDropdown.Item>
                   </LinkContainer>
-                  <NavDropdown.Item onClick={logoutHandeler}>
+                  {userInfo.isAdmin && (
+                    <LinkContainer to='/admin/userlist'>
+                      <NavDropdown.Item>Users</NavDropdown.Item>
+                    </LinkContainer>
+                  )}
+                  {userInfo.isAdmin && (
+                    <LinkContainer to='/admin/productlist'>
+                      <NavDropdown.Item>Products</NavDropdown.Item>
+                    </LinkContainer>
+                  )}
+                  {userInfo.isAdmin && (
+                    <LinkContainer to='/admin/orderlist'>
+                      <NavDropdown.Item>Orders</NavDropdown.Item>
+                    </LinkContainer>
+                  )}
+                  <NavDropdown.Item onClick={logoutHandler}>
                     {' '}
                     Logout
                   </NavDropdown.Item>
@@ -44,6 +59,19 @@ const Header = () => {
                   </Nav.Link>
                 </LinkContainer>
               )}
+              {/*userInfo && userInfo.isAdmin && (
+                <NavDropdown title='ADMIN' id='adminmenu'>
+                  <LinkContainer to='/admin/userlist'>
+                    <NavDropdown.Item>Users</NavDropdown.Item>
+                  </LinkContainer>
+                  <LinkContainer to='/admin/productlist'>
+                    <NavDropdown.Item>Products</NavDropdown.Item>
+                  </LinkContainer>
+                  <LinkContainer to='/admin/orderlist'>
+                    <NavDropdown.Item>Orders</NavDropdown.Item>
+                  </LinkContainer>
+                </NavDropdown>
+              )*/}
             </Nav>
             {/* <Form inline>
             <FormControl type='text' placeholder='Search' className='mr-sm-2' />

@@ -6,7 +6,6 @@ import Order from '../models/orderModel.js';
 @route POST/api/orders
 @access Private
 */
-
 const addOrderItems = asyncHandler(async (req, res) => {
   const {
     orderItems,
@@ -39,12 +38,12 @@ const addOrderItems = asyncHandler(async (req, res) => {
     res.status(201).json(createdOrder);
   }
 });
+
 /*
 @desc GET order by id
 @route GET/api/orders/:id
 @access Private
 */
-
 const getOrderbyId = asyncHandler(async (req, res) => {
   const order = await Order.findById(req.params.id).populate(
     'user',
@@ -57,6 +56,7 @@ const getOrderbyId = asyncHandler(async (req, res) => {
     throw new Error('Order not found');
   }
 });
+
 /*
 @desc Update order to paid
 @route GET/api/orders/:id/pay
@@ -73,12 +73,12 @@ const updateOrderToPaid = asyncHandler(async (req, res) => {
       id: req.body.id,
       status: req.body.status,
       updateTime: req.body.updateTime,
-      emailAddress: req.body.emailAddress,
+      emailAddress: req.body.payer.emailAddress,
     };
 
-    const updateOrder = await order.save();
-    
-    res.json(updateOrder);
+    const updatedOrder = await order.save();
+
+    res.json(updatedOrder);
   } else {
     res.status(404);
     throw new Error('Order not found');

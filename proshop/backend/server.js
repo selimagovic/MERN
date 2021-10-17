@@ -11,7 +11,6 @@ import orderRoutes from './routes/orderRoutes.js';
 dotenv.config();
 
 connectDB();
-const PORT = process.env.PORT || 5000;
 
 const app = express();
 
@@ -37,6 +36,8 @@ app.use('/api/config/paypal', (req, res) =>
 app.use(notFound);
 
 app.use(errorHandler);
+
+const PORT = process.env.PORT || 5000;
 
 app.listen(
   PORT,

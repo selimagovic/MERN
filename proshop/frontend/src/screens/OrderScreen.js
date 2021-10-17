@@ -11,9 +11,10 @@ import { ORDER_PAY_RESET } from '../constants/orderConstants';
 
 const OrderScreen = ({ match, history }) => {
   const orderId = match.params.id;
-  const dispatch = useDispatch();
 
   const [sdkReady, setSdkReady] = useState(false);
+
+  const dispatch = useDispatch();
 
   const orderDetails = useSelector((state) => state.orderDetails);
   const { order, loading, error } = orderDetails;
@@ -52,7 +53,7 @@ const OrderScreen = ({ match, history }) => {
       document.body.appendChild(script);
     };
 
-    if (!order || order._id !== orderId || successPay) {
+    if (!order || successPay || order._id !== orderId) {
       dispatch({ type: ORDER_PAY_RESET });
       dispatch(getOrderDetails(orderId));
     } else if (!order.isPaid) {
@@ -62,12 +63,13 @@ const OrderScreen = ({ match, history }) => {
         setSdkReady(true);
       }
     }
-  }, [dispatch, order, orderId, successPay]);
+  }, [dispatch, order, orderId, successPay, history, userInfo]);
 
   const successPaymentHandler = (paymentResult) => {
-    dispatch(payOrder(paymentResult));
     console.log('paymentResult:', paymentResult);
+    dispatch(payOrder(orderId, paymentResult));
   };
+
   return loading ? (
     <Loader />
   ) : error ? (
@@ -195,6 +197,7 @@ const OrderScreen = ({ match, history }) => {
                 ) : (
                   <PayPalButton
                     amount={order.totalPrice}
+                    disabled={order.isPaid}
                     onSuccess={successPaymentHandler}
                   />
                 )}
