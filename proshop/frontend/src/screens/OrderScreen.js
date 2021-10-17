@@ -9,7 +9,7 @@ import Loader from '../components/Loader';
 import { getOrderDetails, payOrder } from '../actions/orderActions';
 import { ORDER_PAY_RESET } from '../constants/orderConstants';
 
-const OrderScreen = ({ match }) => {
+const OrderScreen = ({ match, history }) => {
   const orderId = match.params.id;
   const dispatch = useDispatch();
 
@@ -20,6 +20,9 @@ const OrderScreen = ({ match }) => {
 
   const orderPay = useSelector((state) => state.orderPay);
   const { loading: loadingPay, success: successPay } = orderPay;
+
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
 
   if (!loading) {
     //Calculate prices
@@ -34,6 +37,9 @@ const OrderScreen = ({ match }) => {
     }
   }
   useEffect(() => {
+    if (!userInfo) {
+      history.push('/login');
+    }
     const addPaypalScript = async () => {
       const { data: clientId } = await axios.get('/api/config/paypal');
       const script = document.createElement('script');
