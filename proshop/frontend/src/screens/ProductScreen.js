@@ -25,10 +25,10 @@ const ProductScreen = ({ history, match }) => {
     dispatch(listProductDetails(match.params.id));
   }, [dispatch, match]);
 
-  const addToCartHandeler = () => {
+  const addToCartHandler = () => {
     history.push(`/cart/${match.params.id}?qty=${qty}`);
   };
-
+ 
   return (
     <>
       <Link className='btn btn-light my-3' to='/'>
@@ -51,7 +51,7 @@ const ProductScreen = ({ history, match }) => {
               </ListGroup.Item>
               <ListGroup.Item>
                 <Rating
-                  value={product.rating}
+                  value={parseInt(product.rating) || 0}
                   text={` ${product.numReviews} reviews`}
                 />
               </ListGroup.Item>
@@ -104,7 +104,7 @@ const ProductScreen = ({ history, match }) => {
                 )}
                 <ListGroup.Item>
                   <Button
-                    onClick={addToCartHandeler}
+                    onClick={addToCartHandler}
                     className='btn-block'
                     type='button'
                     disabled={product.countInStock === 0}

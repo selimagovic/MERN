@@ -27,22 +27,25 @@ const OrderScreen = ({ match }) => {
       return (Math.round(number * 100) / 100).toFixed(2);
     };
 
-    order.itemsPrice = addDecimals(
-      order.orderItems.reduce((acc, item) => acc + item.price * item.qty, 0)
-    );
+    if (order) {
+      order.itemsPrice = addDecimals(
+        order.orderItems.reduce((acc, item) => acc + item.price * item.qty, 0)
+      );
+    }
   }
   useEffect(() => {
     const addPaypalScript = async () => {
       const { data: clientId } = await axios.get('/api/config/paypal');
       const script = document.createElement('script');
       script.type = 'text/javascript';
-      script.src = `https://www.paypal.com/sdk/js?client-id=${clientId}&currency=EUR`;
+      script.src = `https://www.paypal.com/sdk/js?client-id=${clientId}`;
       script.async = true;
       script.onload = () => {
         setSdkReady(true);
       };
       document.body.appendChild(script);
     };
+
     if (!order || order._id !== orderId || successPay) {
       dispatch({ type: ORDER_PAY_RESET });
       dispatch(getOrderDetails(orderId));
@@ -53,11 +56,11 @@ const OrderScreen = ({ match }) => {
         setSdkReady(true);
       }
     }
-  }, [order, orderId, successPay]);
+  }, [dispatch, order, orderId, successPay]);
 
   const successPaymentHandler = (paymentResult) => {
-    console.log(paymentResult);
     dispatch(payOrder(paymentResult));
+    console.log('paymentResult:', paymentResult);
   };
   return loading ? (
     <Loader />
@@ -108,7 +111,7 @@ const OrderScreen = ({ match }) => {
 
             <ListGroup.Item>
               <h2>Order Items</h2>
-              {order.orderItems.lenght === 0 ? (
+              {order.orderItems.length === 0 ? (
                 <Message>Your order is empty</Message>
               ) : (
                 <ListGroup variant='flush'>
