@@ -17,6 +17,9 @@ const UserEditScreen = ({ match, history }) => {
 
   const dispatch = useDispatch();
 
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
+
   const userDetails = useSelector((state) => state.userDetails);
   const { loading, error, user } = userDetails;
 
@@ -85,6 +88,7 @@ const UserEditScreen = ({ match, history }) => {
                 type='checkbox'
                 label='Is Admin'
                 checked={isAdmin}
+                disabled={userInfo._id === user._id}
                 onChange={(e) => setIsAdmin(e.target.checked)}
               ></Form.Check>
             </Form.Group>
