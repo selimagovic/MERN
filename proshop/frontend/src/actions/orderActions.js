@@ -159,7 +159,6 @@ export const listOrders = () => async (dispatch, getState) => {
 
     const config = {
       headers: {
-        'Content-Type': 'application/json',
         Authorization: `Bearer ${userInfo.token}`,
       },
     };
@@ -196,7 +195,7 @@ export const deliverOrder = (order) => async (dispatch, getState) => {
     };
 
     const { data } = await axios.put(
-      `/api/orders/${order}/deliver`,
+      `/api/orders/${order._id}/deliver`,
       {},
       config
     );

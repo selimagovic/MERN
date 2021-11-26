@@ -138,9 +138,10 @@ const ProductEditScreen = ({ history, match }) => {
               ></Form.Control>
               <Form.File
                 id='image-file'
+                className='custom-file-label'
                 label='Choose File'
-                custom
                 onChange={uploadFileHandler}
+                custom
               ></Form.File>
               {uploading && <Loader />}
             </Form.Group>
