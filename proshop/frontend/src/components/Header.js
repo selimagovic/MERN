@@ -5,6 +5,7 @@ import { LinkContainer } from 'react-router-bootstrap';
 import { Navbar, Nav, Container, NavDropdown } from 'react-bootstrap';
 import SearchBox from './SearchBox';
 import { logout } from '../actions/userActions';
+import { USER_DETAILS_RESET } from '../constants/userConstants';
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -12,6 +13,7 @@ const Header = () => {
   const { userInfo } = userLogin;
 
   const logoutHandler = () => {
+    dispatch({ type: USER_DETAILS_RESET });
     dispatch(logout());
   };
   return (
@@ -30,11 +32,15 @@ const Header = () => {
                   <i className='fas fa-shopping-cart'></i> Cart
                 </Nav.Link>
               </LinkContainer>
+              {userInfo && userInfo.isAdmin && (
+                <i className='fas fa-user-tie fa-3x'></i>
+              )}
               {userInfo ? (
                 <NavDropdown title={userInfo.name} id='username'>
                   <LinkContainer to='/profile'>
                     <NavDropdown.Item>Profile</NavDropdown.Item>
                   </LinkContainer>
+
                   {userInfo.isAdmin && (
                     <LinkContainer to='/admin/userlist'>
                       <NavDropdown.Item>Users</NavDropdown.Item>
@@ -51,7 +57,7 @@ const Header = () => {
                     </LinkContainer>
                   )}
                   <NavDropdown.Item onClick={logoutHandler}>
-                    {' '}
+                    {''}
                     Logout
                   </NavDropdown.Item>
                 </NavDropdown>
