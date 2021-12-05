@@ -13,7 +13,7 @@ const getProducts = asyncHandler(async (req, res) => {
         },
       }
     : {};
-  const pageSize = 2;
+  const pageSize = 10;
   const page = Number(req.query.pageNumber) || 1;
 
   const count = await Product.countDocuments({ ...keyword });
@@ -135,6 +135,14 @@ const createProductReview = asyncHandler(async (req, res) => {
     throw new Error(`${product.name} product not found`);
   }
 });
+//@desc Create Carosel
+//@route POST /api/products/top
+//@access Public
+const getTopProducts = asyncHandler(async (req, res) => {
+  const products = await Product.find({}).sort({ rating: -1 }).limit(4);
+
+  res.json(products);
+});
 
 /*
   const product = new Product({
@@ -155,4 +163,5 @@ export {
   createProduct,
   updateProduct,
   createProductReview,
+  getTopProducts,
 };
