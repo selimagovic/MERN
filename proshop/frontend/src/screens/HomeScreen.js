@@ -1,12 +1,14 @@
-import React, { useEffect } from 'react';
-import { Row, Col } from 'react-bootstrap';
-import Product from '../components/Product';
-import Message from '../components/Message.js';
-import Loader from '../components/Loader.js';
-import Paginate from '../components/Paginate.js';
-import { useDispatch, useSelector } from 'react-redux';
-import { listProducts } from '../actions/productActions';
-import ProductCarousel from '../components/ProductCarousel';
+import React, { useEffect } from "react";
+import { Row, Col } from "react-bootstrap";
+import { Link } from "react-router-dom";
+import Product from "../components/Product";
+import Message from "../components/Message.js";
+import Loader from "../components/Loader.js";
+import Meta from "../components/Meta.js";
+import Paginate from "../components/Paginate.js";
+import { useDispatch, useSelector } from "react-redux";
+import { listProducts } from "../actions/productActions";
+import ProductCarousel from "../components/ProductCarousel";
 
 const HomeScreen = ({ match }) => {
   const keyword = match.params.keyword;
@@ -24,7 +26,14 @@ const HomeScreen = ({ match }) => {
 
   return (
     <>
-      {!keyword && <ProductCarousel />}
+      <Meta />
+      {!keyword ? (
+        <ProductCarousel />
+      ) : (
+        <Link to='/' className='btn btn-light'>
+          Go Back
+        </Link>
+      )}
       <h1>Latest Products</h1>
       {loading ? (
         <Loader />
@@ -49,7 +58,7 @@ const HomeScreen = ({ match }) => {
           <Paginate
             pages={pages}
             page={page}
-            keyword={keyword ? keyword : ''}
+            keyword={keyword ? keyword : ""}
           />
         </>
       )}

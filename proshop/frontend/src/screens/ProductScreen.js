@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import {
   Row,
   Col,
@@ -9,20 +9,21 @@ import {
   Card,
   Button,
   Form,
-} from 'react-bootstrap';
-import Rating from '../components/Rating';
-import Loader from '../components/Loader';
-import Message from '../components/Message';
+} from "react-bootstrap";
+import Rating from "../components/Rating";
+import Loader from "../components/Loader";
+import Message from "../components/Message";
+import Meta from "../components/Meta";
 import {
   listProductDetails,
   createProductReview,
-} from '../actions/productActions.js';
-import { PRODUCT_CREATE_REVIEW_RESET } from '../constants/productConstants.js';
+} from "../actions/productActions.js";
+import { PRODUCT_CREATE_REVIEW_RESET } from "../constants/productConstants.js";
 
 const ProductScreen = ({ history, match }) => {
   const [qty, setQty] = useState(1);
   const [rating, setRating] = useState(0);
-  const [comment, setComment] = useState('');
+  const [comment, setComment] = useState("");
 
   const dispatch = useDispatch();
   const productDetails = useSelector((state) => state.productDetails);
@@ -37,9 +38,9 @@ const ProductScreen = ({ history, match }) => {
 
   useEffect(() => {
     if (successProductReview) {
-      alert('Review Submitted!');
+      alert("Review Submitted!");
       setRating(0);
-      setComment('');
+      setComment("");
       dispatch({ type: PRODUCT_CREATE_REVIEW_RESET });
     }
     dispatch(listProductDetails(match.params.id));
@@ -65,6 +66,7 @@ const ProductScreen = ({ history, match }) => {
         <Message variant='danger'>{error}</Message>
       ) : (
         <>
+          <Meta title={product.name} />
           <Row>
             <Col md={6}>
               <Image src={product.image} alt={product.name} fluid />
@@ -103,7 +105,7 @@ const ProductScreen = ({ history, match }) => {
                     <Row>
                       <Col>Status:</Col>
                       <Col>
-                        {product.countInStock > 0 ? 'In Stock' : 'Out Of Stock'}
+                        {product.countInStock > 0 ? "In Stock" : "Out Of Stock"}
                       </Col>
                     </Row>
                   </ListGroup.Item>
@@ -194,8 +196,12 @@ const ProductScreen = ({ history, match }) => {
                     </Form>
                   ) : (
                     <Message>
-                      Please <Link to='/login'> <strong>Sign In</strong></Link> to write a
-                      customer review.
+                      Please{" "}
+                      <Link to='/login'>
+                        {" "}
+                        <strong>Sign In</strong>
+                      </Link>{" "}
+                      to write a customer review.
                     </Message>
                   )}
                 </ListGroup.Item>
