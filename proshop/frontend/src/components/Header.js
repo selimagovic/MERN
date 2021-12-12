@@ -1,11 +1,11 @@
-import React from 'react';
-import { Route } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { LinkContainer } from 'react-router-bootstrap';
-import { Navbar, Nav, Container, NavDropdown } from 'react-bootstrap';
-import SearchBox from './SearchBox';
-import { logout } from '../actions/userActions';
-import { USER_DETAILS_RESET } from '../constants/userConstants';
+import React from "react";
+import { Route } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { LinkContainer } from "react-router-bootstrap";
+import { Navbar, Nav, Container, NavDropdown } from "react-bootstrap";
+import SearchBox from "./SearchBox";
+import { logout } from "../actions/userActions";
+import { USER_DETAILS_RESET } from "../constants/userConstants";
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -21,7 +21,7 @@ const Header = () => {
       <Navbar bg='dark' variant='dark' expand='lg' collapseOnSelect>
         <Container>
           <LinkContainer to='/'>
-            <Navbar.Brand>PROSHOP</Navbar.Brand>
+            <Navbar.Brand>BALKANSHOP</Navbar.Brand>
           </LinkContainer>
           <Navbar.Toggle aria-controls='basic-navbar-nav' />
           <Navbar.Collapse id='basic-navbar-nav'>
@@ -57,7 +57,7 @@ const Header = () => {
                     </LinkContainer>
                   )}
                   <NavDropdown.Item onClick={logoutHandler}>
-                    {''}
+                    {""}
                     Logout
                   </NavDropdown.Item>
                 </NavDropdown>
